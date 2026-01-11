@@ -2,16 +2,16 @@
 
 Python Project Blueprint
 
-## Make automation
+## Development
 
-Check the [Makefile](./Makefile) for automation as a first step, it defines all project commands.
+Check the [Makefile](./Makefile) for automation as the initial step, it defines all project commands.
 
 Short summary of commands in a desired order of use.
 
 ```shell
-make venv # Create virtual environment (first)
+make venv # Create virtual environment (first step)
 
-make install # Install dependencies
+make install # Install dependencies (second step)
 mske lock    # Lock dependencies
 make upgrade # Upgrade dependencies
 
@@ -22,6 +22,7 @@ make test   # Run tests
 make build # Create distributable packages (artefacts)
 
 # Set repository access configurations
+# Alternative configuration is provided in the notes section
 export TWINE_USERNAME=your_ldap_user
 export TWINE_PASSWORD=your_ldap_password
 export TWINE_REPOSITORY_URL="https://nexus.mycompany.com/repository/pypi-internal/"
@@ -64,19 +65,6 @@ calc = Calculator()
 print(f"2 + 3 = {calc.add(2, 3)}")
 ```
 
-## References
-
-- [Python](https://www.python.org)
-- [Python - Releases](https://www.python.org/downloads/)
-- [Python 3.14 - Documentation](https://docs.python.org/3.14/)
-- [PIP](https://pip.pypa.io/en/stable/)
-- [PyPI - Package Index](https://pypi.org)
-- [pyproject.toml](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
-- [PyTest](https://docs.pytest.org/en/stable/)
-- [Ruff - Linting](https://docs.astral.sh/ruff/)
-- [Twine - Package Publishing](https://twine.readthedocs.io/en/stable/)
-- [Emoji Library](https://openmoji.org/library/) - Used in Makefile
-
 ## Notes
 
 ### Troubleshooting
@@ -116,12 +104,20 @@ password = your_ldap_password
 and
 
 ```shell
-twine upload --repository nexus dist/*
+make publish repo=nexus
 ```
 
 command can be used to publish the artefacts.
 
-## TODO
+## References
 
-- Add more logic for tests, mocking and integration testing.
-- Add distributed resource file.
+- [Python](https://www.python.org)
+- [Python - Releases](https://www.python.org/downloads/)
+- [Python 3.14 - Documentation](https://docs.python.org/3.14/)
+- [PIP](https://pip.pypa.io/en/stable/)
+- [PyPI - Package Index](https://pypi.org)
+- [pyproject.toml](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
+- [PyTest](https://docs.pytest.org/en/stable/)
+- [Ruff - Linting](https://docs.astral.sh/ruff/)
+- [Twine - Package Publishing](https://twine.readthedocs.io/en/stable/)
+- [Emoji Library](https://openmoji.org/library/) - Used in Makefile
