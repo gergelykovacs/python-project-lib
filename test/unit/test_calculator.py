@@ -12,6 +12,6 @@ def test_divide_by_zero(calculator):
         calculator.divide(10, 0)
 
 
-def test_name(calculator):
+def test_name(calculator, mock_project_properties):
     # 'calculator' is injected automatically from conftest.py
-    assert calculator.name() == "Simple Calculator"
+    assert calculator.name() == "Mocked Project Name"

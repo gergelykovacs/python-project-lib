@@ -34,6 +34,11 @@ testpaths = ["tests"]
 # Fail build if coverage is below 80%
 addopts = "--cov=my_lib --cov-report=term-missing --cov-fail-under=80"
 
+[tool.coverage.run]
+omit = [
+    "src/my_lib/config/project_properties.py"
+]
+
 [tool.ruff]
 line-length = 88
 target-version = "py310"

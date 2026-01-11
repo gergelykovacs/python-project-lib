@@ -1,5 +1,5 @@
-import json
-from importlib.resources import files
+from my_lib.config.project_properties import ProjectProperties
+
 
 class Calculator:
     def add(self, a: int, b: int) -> int:
@@ -11,7 +11,4 @@ class Calculator:
         return a / b
 
     def name(self) -> str:
-        resource_path = files("my_lib.resources").joinpath("config.json")
-        json_content = resource_path.read_text(encoding="utf-8")
-        config = json.loads(json_content)
-        return config.get("name")
+        return ProjectProperties().name()
