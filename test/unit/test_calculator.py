@@ -10,3 +10,8 @@ def test_divide_by_zero(calculator):
     # Asserting exceptions
     with pytest.raises(ValueError, match="Cannot divide by zero"):
         calculator.divide(10, 0)
+
+
+def test_name(calculator):
+    # 'calculator' is injected automatically from conftest.py
+    assert calculator.name() == "Simple Calculator"
