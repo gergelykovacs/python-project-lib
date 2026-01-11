@@ -1,6 +1,5 @@
 import pytest
-
-from my_app.calculator import Calculator
+from my_lib.calculator import Calculator
 
 
 @pytest.fixture

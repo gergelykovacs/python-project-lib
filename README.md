@@ -1,50 +1,104 @@
-# Sample Python Project
+# Python Project - Library (Module)
+
+Python Project Blueprint
 
 ## Make automation
 
-Check [Makefile](./Makefile) for command automation.
+Check the [Makefile](./Makefile) for automation as a first step, it defines all project commands.
 
-## Install dependencies
-
-```shell
-# If install from toml
-pip install -e ".[dev]"
-# If install from lock txt
-pip install -r requirements.txt
-```
-
-## Test
+Short summary of commands in a desired order of use.
 
 ```shell
-ruff check .
-ruff format --check .
-ruff format .
+make venv # Create virtual environment (first)
+
+make install # Install dependencies
+mske lock    # Lock dependencies
+make upgrade # Upgrade dependencies
+
+make lint   # Check the code style
+make format # Fix style issues
+make test   # Run tests
+
+make build # Create distributable packages (artefacts)
+
+# Set repository access configurations
+export TWINE_USERNAME=your_ldap_user
+export TWINE_PASSWORD=your_ldap_password
+export TWINE_REPOSITORY_URL="https://nexus.mycompany.com/repository/pypi-internal/"
+make publish # Publish the artefacts
+
+make clean # Remove all generated files
+
+make all # In development (lock install upgrade lint test build)
+```
+
+## Usage
+
+Once the library (module) is published or just built locally it can be used. 
+
+### Installing from repository
+
+```toml
+# ~/.config/pip/pip.conf
+[global]
+index-url = https://nexus.mycompany.com/repository/pypi-group/simple
+trusted-host = nexus.mycompany.com
 ```
 
 ```shell
-pytest
+pip install my_app==0.1.0
 ```
 
-## Build and package
+### Installing from local package
 
 ```shell
-pip install pip-tools
-# Generate lock file
-pip-compile -o requirements.txt pyproject.toml
+pip install /path/to/my_project/dist/my_lib-0.1.0-py3-none-any.whl
 ```
+
+### Using the library or module
+
+```python
+from my_lib.calculator import Calculator
+
+calc = Calculator()
+print(f"2 + 3 = {calc.add(2, 3)}")
+```
+
+## References
+
+- [Python](https://www.python.org)
+- [Python - Releases](https://www.python.org/downloads/)
+- [Python 3.14 - Documentation](https://docs.python.org/3.14/)
+- [PIP](https://pip.pypa.io/en/stable/)
+- [PyPI - Package Index](https://pypi.org)
+- [pyproject.toml](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
+- [PyTest](https://docs.pytest.org/en/stable/)
+- [Ruff - Linting](https://docs.astral.sh/ruff/)
+- [Twine - Package Publishing](https://twine.readthedocs.io/en/stable/)
+- [Emoji Library](https://openmoji.org/library/) - Used in Makefile
+
+## Notes
+
+### Troubleshooting
+
+If virtualenv gets broken it will not expose binaries properly example:
 
 ```shell
-pip install build
-python -m build
+make test
+make: pytest: No such file or directory
 ```
 
-## Deploy
+In such case reset it by:
 
 ```shell
-pip install twine
+rm -rf .venv
+make venv
+make install
 ```
 
-### Option 1
+### Deployment alternative configuration
+
+Twine accepts configuration from `~/.pypirc`
 
 ```toml
 # ~/.pypirc
@@ -59,51 +113,15 @@ username = your_ldap_user
 password = your_ldap_password
 ```
 
+and
+
 ```shell
 twine upload --repository nexus dist/*
 ```
 
-### Option 2
-
-```shell
-export TWINE_USERNAME=your_ldap_user
-export TWINE_PASSWORD=your_ldap_password
-export TWINE_REPOSITORY_URL="https://nexus.mycompany.com/repository/pypi-internal/"
-
-twine upload dist/*
-```
-
-## Usage
-
-```toml
-# ~/.config/pip/pip.conf
-[global]
-index-url = https://nexus.mycompany.com/repository/pypi-group/simple
-trusted-host = nexus.mycompany.com
-```
-
-```shell
-pip install my_app==0.1.0
-```
-
-Or locally
-
-```shell
-pip install /path/to/my_project/dist/my_app-0.1.0-py3-none-any.whl
-```
-
-Then
-
-```python
-from my_app.calculator import Calculator
-
-calc = Calculator()
-print(f"2 + 3 = {calc.add(2, 3)}")
-```
+command can be used to publish the artefacts.
 
 ## TODO
 
-- Start version the project.
-- Add test with testcontainers.
 - Add more logic for tests, mocking and integration testing.
-- Create new app in which there is a containerised app using this package.
+- Add distributed resource file.

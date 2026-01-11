@@ -3,23 +3,23 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "my_app"
+name = "my_lib"
 version = "0.1.0"
-description = "A production-ready Python project scaffold"
+description = "A production-ready Python project blueprint"
 requires-python = ">=3.10"
 dependencies = [
-    "httpx>=0.24.0",  # Example runtime dependency
+    "httpx>=0.28.1", # Example runtime dependency
 ]
 
 [project.optional-dependencies]
 dev = [
     "pip-tools>=7.5.2",
-    "build>=1.3.0",
+    "build>=1.4.0",
     "twine>=6.2.0",
-    "pytest>=7.4",
-    "pytest-cov>=4.1",
-    "pytest-mock>=3.11",
-    "ruff>=0.1.0",     # Modern, fast replacement for Flake8/Black
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "pytest-mock>=3.15.1",
+    "ruff>=0.14.11",
 ]
 
 # --- Tool Configurations ---
@@ -28,7 +28,7 @@ dev = [
 pythonpath = ["src"]
 testpaths = ["tests"]
 # Fail build if coverage is below 80%
-addopts = "--cov=my_app --cov-report=term-missing --cov-fail-under=80"
+addopts = "--cov=my_lib --cov-report=term-missing --cov-fail-under=80"
 
 [tool.ruff]
 line-length = 88

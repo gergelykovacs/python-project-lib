@@ -15,7 +15,7 @@ h11==0.16.0
 httpcore==1.0.9
     # via httpx
 httpx==0.28.1
-    # via my_app (pyproject.toml)
+    # via my_lib (pyproject.toml)
 idna==3.11
     # via
     #   anyio

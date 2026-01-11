@@ -3,16 +3,23 @@ PYTHON := python3
 PIP := pip
 PIP_COMPILE := pip-compile
 RUFF := ruff
+PYTEST := pytest
 TWINE := twine
 
 # Default target (runs when you just type "make")
 .PHONY: all
-all: install lint test
+all: lock install upgrade lint test build
 
 # --- Dependency Management ---
 
+.PHONY: venv
+venv:
+	@echo "🛠 Creating virtual environment..."
+	$(PYTHON) -m venv .venv
+	@. ./.venv/bin/activate
+	@echo "✅ virtual environment created."
+
 # Lock: Generates requirements.txt from pyproject.toml
-# Java Equivalent: mvn versions:update-properties / Dependency Locking
 .PHONY: lock
 lock:
 	@echo "🔒 Locking dependencies..."
@@ -27,7 +34,6 @@ upgrade:
 	@echo "✅ requirements.txt upgraded."
 
 # Install: Syncs environment with locked deps and installs the app
-# Java Equivalent: mvn install
 .PHONY: install
 install:
 	@echo "📦 Installing dependencies..."
@@ -38,7 +44,6 @@ install:
 # --- Quality Assurance (Linting & Testing) ---
 
 # Lint: Checks code style without modifying files
-# Java Equivalent: mvn checkstyle:check
 .PHONY: lint
 lint:
 	@echo "🔍 Linting code..."
@@ -47,7 +52,6 @@ lint:
 	@echo "✅ Lint check passed."
 
 # Format: Automatically fixes code style issues
-# Java Equivalent: mvn spotless:apply
 .PHONY: format
 format:
 	@echo "💅 Formatting code..."
@@ -56,16 +60,14 @@ format:
 	@echo "✅ Code formatted."
 
 # Test: Runs the unit/integration tests
-# Java Equivalent: mvn test
 .PHONY: test
 test:
 	@echo "🧪 Running tests..."
-	pytest
+	$(PYTEST)
 
 # --- Packaging & Publishing ---
 
 # Build: Creates the distribution files (Wheel & Tarball)
-# Java Equivalent: mvn package
 .PHONY: build
 build: clean
 	@echo "🏗️  Building package..."
@@ -73,7 +75,6 @@ build: clean
 	@echo "✅ Build complete. Artifacts in dist/"
 
 # Publish: Uploads artifacts to the repository
-# Java Equivalent: mvn deploy
 # Usage: make publish repo=nexus
 .PHONY: publish
 publish: build
@@ -89,10 +90,9 @@ endif
 # --- Utilities ---
 
 # Clean: Removes build artifacts and caches
-# Java Equivalent: mvn clean
 .PHONY: clean
 clean:
 	@echo "🧹 Cleaning up..."
-	rm -rf dist/ build/ *.egg-info .pytest_cache .coverage .ruff_cache
+	rm -rf dist/ build/ *.egg-info src/*.egg-info .pytest_cache .coverage test/.coverage .ruff_cache
 	find . -type d -name __pycache__ -exec rm -r {} +
 	@echo "✅ Clean complete."
