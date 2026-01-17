@@ -19,6 +19,9 @@ make lint   # Check the code style
 make format # Fix style issues
 make test   # Run tests
 
+make sbom # Generate Software Bill of Materials - run it when dependencies change
+make audit # Run vulnerability audit - not tracked by Git
+
 make build # Create distributable packages (artefacts)
 
 # Set repository access configurations
@@ -29,6 +32,7 @@ export TWINE_REPOSITORY_URL="https://nexus.mycompany.com/repository/pypi-interna
 make publish # Publish the artefacts
 
 make clean # Remove all generated files
+make docs  # Generate documentation - not tracked by Git
 
 make all # In development (lock install upgrade lint test build)
 ```
@@ -58,11 +62,11 @@ pip install /path/to/my_project/dist/my_lib-0.1.0-py3-none-any.whl
 
 ### Using the library or module
 
-```python
-from my_lib.calculator import Calculator
+A sample client application can be found in the [client](./client) directory.
 
-calc = Calculator()
-print(f"2 + 3 = {calc.add(2, 3)}")
+```shell
+docker build -t my-lib-client:latest .
+docker run my-lib-client:latest
 ```
 
 ## Notes

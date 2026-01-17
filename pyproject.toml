@@ -1,9 +1,9 @@
 [build-system]
-requires = ["setuptools>=80.9.0", "wheel"]
+requires = ["setuptools>=80.9.0", "wheel", "build"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "my_lib"
+name = "my-lib"
 version = "0.1.0"
 description = "A production-ready Python project blueprint"
 requires-python = ">=3.10"
@@ -20,6 +20,9 @@ dev = [
     "pytest-cov>=7.0.0",
     "pytest-mock>=3.15.1",
     "ruff>=0.14.11",
+    "cyclonedx-bom>=7.2.1",
+    "pip-audit>=2.10.0",
+    "pdoc>=16.0.0"
 ]
 
 # --- Tool Configurations ---
@@ -40,9 +43,9 @@ omit = [
 ]
 
 [tool.ruff]
-line-length = 88
+line-length = 120
 target-version = "py310"
-src = ["src", "tests"]
+src = ["src", "tests", "client"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]  # E=Error, F=Pyflakes, I=Isort (Import sorting)

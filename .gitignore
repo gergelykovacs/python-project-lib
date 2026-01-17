@@ -9,3 +9,5 @@ build/
 .venv/
 .env
 .DS_Store
+audit.json
+docs

@@ -1,10 +1,12 @@
 # Variables
-PYTHON := python3
-PIP := pip
-PIP_COMPILE := pip-compile
-RUFF := ruff
-PYTEST := pytest
-TWINE := twine
+VENV_PATH := .venv/bin
+SYSTEM_PYTHON := python3
+PYTHON := $(VENV_PATH)/python3
+PIP := $(VENV_PATH)/pip
+PIP_COMPILE := $(VENV_PATH)/pip-compile
+RUFF := $(VENV_PATH)/ruff
+PYTEST := $(VENV_PATH)/pytest
+TWINE := $(VENV_PATH)/twine
 
 # Default target (runs when you just type "make")
 .PHONY: all
@@ -15,7 +17,7 @@ all: lock install upgrade lint test build
 .PHONY: venv
 venv:
 	@echo "🛠 Creating virtual environment..."
-	$(PYTHON) -m venv .venv
+	$(SYSTEM_PYTHON) -m venv .venv
 	@. ./.venv/bin/activate
 	@echo "✅ virtual environment created."
 
@@ -65,12 +67,27 @@ test:
 	@echo "🧪 Running tests..."
 	$(PYTEST)
 
+# SBOM: Generates Software Bill of Materials in CycloneDX JSON format
+.PHONY: sbom
+sbom: install
+	@echo "📋 Generating SBOM..."
+	$(VENV_PATH)/cyclonedx-py requirements requirements.txt -o sbom.json
+	@echo "✅ SBOM generated as sbom.json"
+
+# Audit: Generates security audit report in JSON format
+.PHONY: audit
+audit: install
+	@echo "🔒 Running security audit..."
+	$(VENV_PATH)/pip-audit --format=json --output=audit.json
+	@echo "✅ Security audit saved as audit.json"
+
 # --- Packaging & Publishing ---
 
 # Build: Creates the distribution files (Wheel & Tarball)
 .PHONY: build
-build: clean
+build: clean install
 	@echo "🏗️  Building package..."
+	$(PIP) install build
 	$(PYTHON) -m build
 	@echo "✅ Build complete. Artifacts in dist/"
 
@@ -81,18 +98,25 @@ publish: build
 	@echo "🚀 Publishing to repository..."
 	# If 'repo' arg is provided, use it; otherwise default to standard upload
 ifdef repo
-	$(TWINE) upload --repository $(repo) dist/*
+	$(TWINE) upload --repository $(repo) dist/* --verbose > twine-publish.log 2>&1
 else
-	$(TWINE) upload dist/*
+	$(TWINE) upload dist/* --verbose > twine-publish.log 2>&1
 endif
 	@echo "✅ Published successfully."
 
 # --- Utilities ---
 
+ Docs: Generates documentation from docstrings in Markdown format
+.PHONY: docs
+docs: install
+	@echo "📚 Generating documentation..."
+	$(VENV_PATH)/pdoc -o docs src/my_lib src/my_lib/config
+	@echo "✅ Documentation generated in docs/ directory"
+
 # Clean: Removes build artifacts and caches
 .PHONY: clean
 clean:
 	@echo "🧹 Cleaning up..."
-	rm -rf dist/ build/ *.egg-info src/*.egg-info .pytest_cache .coverage test/.coverage .ruff_cache
+	rm -rf docs/ dist/ build/ *.egg-info src/*.egg-info .pytest_cache .coverage test/.coverage .ruff_cache
 	find . -type d -name __pycache__ -exec rm -r {} +
 	@echo "✅ Clean complete."
