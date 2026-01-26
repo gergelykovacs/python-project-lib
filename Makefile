@@ -7,6 +7,8 @@ PIP_COMPILE := $(VENV_PATH)/pip-compile
 RUFF := $(VENV_PATH)/ruff
 PYTEST := $(VENV_PATH)/pytest
 TWINE := $(VENV_PATH)/twine
+DOCKER := docker
+VERSION := $(strip $(shell cat VERSION))
 
 # Default target (runs when you just type "make")
 .PHONY: all
@@ -31,7 +33,7 @@ lock:
 # Upgrade: Updates all packages to the latest allowed versions
 .PHONY: upgrade
 upgrade:
-	@echo "⬆️  Upgrading dependencies..."
+	@echo "⬆️ Upgrading dependencies..."
 	$(PIP_COMPILE) --upgrade -o requirements.txt pyproject.toml --resolver=backtracking
 	@echo "✅ requirements.txt upgraded."
 
@@ -86,10 +88,24 @@ audit: install
 # Build: Creates the distribution files (Wheel & Tarball)
 .PHONY: build
 build: clean install
-	@echo "🏗️  Building package..."
+	@echo "🏗️ Building package..."
 	$(PIP) install build
 	$(PYTHON) -m build
 	@echo "✅ Build complete. Artifacts in dist/"
+
+# Docker Build: Creates the Docker image
+.PHONY: docker-build
+docker-build: build
+	@echo "🏗️ Building the Docker image..."
+	$(DOCKER) build -t my-lib-client:$(VERSION) .
+	@echo "✅ Docker build complete."
+
+# Docker Run: Runs the Docker container
+.PHONY: docker-run
+docker-run:
+	@echo "🚀 Running the Docker container..."
+	$(DOCKER) run --rm my-lib-client:$(VERSION)
+	@echo "✅ Docker container stopped."
 
 # Publish: Uploads artifacts to the repository
 # Usage: make publish repo=nexus
