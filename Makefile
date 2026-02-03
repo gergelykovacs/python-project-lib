@@ -7,6 +7,8 @@ PIP_COMPILE := $(VENV_PATH)/pip-compile
 RUFF := $(VENV_PATH)/ruff
 PYTEST := $(VENV_PATH)/pytest
 TWINE := $(VENV_PATH)/twine
+BANDIT := $(VENV_PATH)/bandit
+PRECOMMIT := $(VENV_PATH)/pre-commit
 DOCKER := docker
 VERSION := $(strip $(shell cat VERSION))
 
@@ -45,6 +47,13 @@ install:
 	$(PIP) install -e ".[dev]"
 	@echo "✅ Environment synced."
 
+# Setup: Installs dependencies and sets up git hooks
+.PHONY: setup
+setup: install
+	@echo "🪝 Installing Git hooks..."
+	$(PRECOMMIT) install
+	@echo "✅ Setup complete."
+
 # --- Quality Assurance (Linting & Testing) ---
 
 # Lint: Checks code style without modifying files
@@ -63,9 +72,17 @@ format:
 	$(RUFF) format .
 	@echo "✅ Code formatted."
 
+# Security: Runs bandit to check for vulnerabilities
+.PHONY: security
+security:
+	@echo "🛡️  Running security scan..."
+	# -c: configuration file, -r: recursive
+	$(BANDIT) -c pyproject.toml -r .
+	@echo "✅ Security scan passed."
+
 # Test: Runs the unit/integration tests
 .PHONY: test
-test:
+test: security
 	@echo "🧪 Running tests..."
 	$(PYTEST)
 

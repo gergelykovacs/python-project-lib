@@ -12,12 +12,15 @@ Short summary of commands in a desired order of use.
 make venv # Create virtual environment (first step)
 
 make install # Install dependencies (second step)
+make setup   # Install dependencies and git hooks (runs install)
+
 mske lock    # Lock dependencies
 make upgrade # Upgrade dependencies
 
-make lint   # Check the code style
-make format # Fix style issues
-make test   # Run tests
+make lint     # Check the code style
+make format   # Fix style issues
+make security # Check for security issues
+make test     # Run tests
 
 make sbom # Generate Software Bill of Materials - run it when dependencies change
 make audit # Run vulnerability audit - not tracked by Git
@@ -68,6 +71,32 @@ pip install /path/to/my_project/dist/my_lib-0.1.0-py3-none-any.whl
 A sample client application can be found in the [client](./client) directory.
 
 ## Notes
+
+### Testing git hooks
+
+Install git pre-commit hook by running `make setup`.
+
+To test it, add the following `bad.py` to [src/my_lib](./src/my_lib).
+
+```python
+
+import yaml
+with open("bad.yaml") as f:
+    data = yaml.load(f)
+    print(data)
+```
+
+Run
+
+```shell
+git add -A
+git commit -m 'Testing git hook' 
+```
+
+1. Fix linting issues by running `make format`.
+2. Then observe security issue when trying to commit.
+
+Finally remove the `bad.py` file.
 
 ### Troubleshooting
 
