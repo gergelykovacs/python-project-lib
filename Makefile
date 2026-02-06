@@ -9,6 +9,7 @@ PYTEST := $(VENV_PATH)/pytest
 TWINE := $(VENV_PATH)/twine
 BANDIT := $(VENV_PATH)/bandit
 PRECOMMIT := $(VENV_PATH)/pre-commit
+PCU := $(VENV_PATH)/pcu
 DOCKER := docker
 VERSION := $(strip $(shell cat VERSION))
 
@@ -54,6 +55,20 @@ setup: install
 	$(PRECOMMIT) install
 	@echo "✅ Setup complete."
 
+# Outdated: Checks for newer versions of dependencies
+.PHONY: outdated
+outdated:
+	@echo "🔍 Checking for newer versions of dependencies..."
+	$(PCU) pyproject.toml -t latest --extra dev --fail_on_update
+	@echo "✅ Dependency outdated check passed."
+
+# PIP Upgrade: upgrade PIP to its latest version
+.PHONY: pip-upgrade
+pip-upgrade:
+	@echo "⬆️ Upgrading pip..."
+	$(PIP) install --upgrade pip
+	@echo "✅ pip upgraded."
+
 # --- Quality Assurance (Linting & Testing) ---
 
 # Lint: Checks code style without modifying files
@@ -97,7 +112,7 @@ sbom: install
 .PHONY: audit
 audit: install
 	@echo "🔒 Running security audit..."
-	$(VENV_PATH)/pip-audit --format=json --output=audit.json
+	$(VENV_PATH)/pip-audit -r requirements.txt --format=cyclonedx-json --output=audit.json
 	@echo "✅ Security audit saved as audit.json"
 
 # --- Packaging & Publishing ---

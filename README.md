@@ -14,8 +14,9 @@ make venv # Create virtual environment (first step)
 make install # Install dependencies (second step)
 make setup   # Install dependencies and git hooks (runs install)
 
-mske lock    # Lock dependencies
-make upgrade # Upgrade dependencies
+mske lock     # Lock dependencies
+make upgrade  # Upgrade dependencies
+make outdated # Check for outdated dependencies
 
 make lint     # Check the code style
 make format   # Fix style issues

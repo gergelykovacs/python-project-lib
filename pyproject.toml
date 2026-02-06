@@ -19,12 +19,13 @@ dev = [
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
     "pytest-mock>=3.15.1",
-    "ruff>=0.14.11",
+    "ruff>=0.15.0",
     "cyclonedx-bom>=7.2.1",
     "pip-audit>=2.10.0",
     "pdoc>=16.0.0",
     "bandit>=1.9.3",
-    "pre-commit>=4.5.1"
+    "pre-commit>=4.5.1",
+    "pip-check-updates>=0.28.0",
 ]
 
 # --- Tool Configurations ---
