@@ -90,7 +90,7 @@ format:
 # Security: Runs bandit to check for vulnerabilities
 .PHONY: security
 security:
-	@echo "🛡️  Running security scan..."
+	@echo "🛡️ Running security scan..."
 	# -c: configuration file, -r: recursive
 	$(BANDIT) -c pyproject.toml -r .
 	@echo "✅ Security scan passed."

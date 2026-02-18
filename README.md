@@ -23,7 +23,7 @@ make format   # Fix style issues
 make security # Check for security issues
 make test     # Run tests
 
-make sbom # Generate Software Bill of Materials - run it when dependencies change
+make sbom  # Generate Software Bill of Materials - run it when dependencies change
 make audit # Run vulnerability audit - not tracked by Git
 
 make build # Create distributable packages (artefacts)

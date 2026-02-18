@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "A production-ready Python project blueprint"
 requires-python = ">=3.10"
 dependencies = [
-    "httpx>=0.28.1", # Example runtime dependency
+    "pydantic>=2.12.5", # Example runtime dependency
 ]
 
 [project.optional-dependencies]
