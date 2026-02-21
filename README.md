@@ -31,6 +31,10 @@ make build # Create distributable packages (artefacts)
 make docker-build # Build Docker image
 make docker-run   # Run Docker container
 
+make docker-build-lambda # Build the Lambda Docker image
+make docker-run-lambda   # Run the Lambda Docker container
+make lambda-invoke       # Invoke the Lambda function with test events
+
 # Set repository access configurations
 # Alternative configuration is provided in the notes section
 export TWINE_USERNAME=your_ldap_user
@@ -46,7 +50,16 @@ make all # In development (lock install upgrade lint test build)
 
 ## Usage
 
-Once the library (module) is published or just built locally it can be used. 
+Once the library (module) is published or just built locally, it can be used.
+
+### Containerised Library Examples
+
+Two examples are provided in the [client](./client) directory.
+
+1. [Lambda](./client/lambda_function.py) - AWS Lambda function.
+2. [Python CLI](./client/client.py) – Python CLI application.
+
+These are both containerised and can be run locally.
 
 ### Installing from repository
 

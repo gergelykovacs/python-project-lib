@@ -139,6 +139,32 @@ docker-run:
 	$(DOCKER) run --rm my-lib-client:$(VERSION)
 	@echo "✅ Docker container stopped."
 
+# Docker Build Lambda: Creates the Lambda Docker image
+.PHONY: docker-build-lambda
+docker-build-lambda: build
+	@echo "🏗️ Building the Lambda Docker image..."
+	$(DOCKER) build -f Dockerfile.lambda -t my-lib-lambda:$(VERSION) .
+	@echo "✅ Docker build complete."
+
+# Docker Run Lambda: Runs the Lambda Docker container
+.PHONY: docker-run-lambda
+docker-run-lambda:
+	@echo "🚀 Running the Lambda Docker container..."
+	$(DOCKER) run --rm -p 9000:8080 my-lib-lambda:$(VERSION)
+	@echo "✅ Docker container stopped."
+
+# Docker Run Lambda: Runs the Lambda Docker container
+.PHONY: lambda-invoke
+lambda-invoke:
+	@echo "▶ Invoking the Lambda function..."
+	curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"body": "{\"operation\": \"add\", \"a\": \"2\", \"b\": \"3\"}"}' | jq
+	curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"body": "{\"operation\": \"add\", \"a\": \"2\"}"}' | jq
+	curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"body": "{\"operation\": \"divide\", \"a\": \"3\", \"b\": \"2\"}"}' | jq
+	curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"body": "{\"operation\": \"divide\", \"b\": \"2\"}"}' | jq
+	curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"body": "{\"operation\": \"divide\", \"a\": \"3\", \"b\": \"0\"}"}' | jq
+	curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"body": "{\"a\": \"3\", \"b\": \"2\"}"}' | jq
+	@echo "✅ Done."
+
 # Publish: Uploads artifacts to the repository
 # Usage: make publish repo=nexus
 .PHONY: publish

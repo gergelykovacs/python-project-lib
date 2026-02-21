@@ -1,0 +1,18 @@
+FROM amazon/aws-lambda-python:3.14-x86_64
+
+COPY client/lambda_function.py ${LAMBDA_TASK_ROOT}
+
+COPY pyproject.toml .
+COPY requirements.txt .
+COPY dist dist
+
+#RUN pip config set global.index-url https://nexus.mycompany.com/repository/pypi-packages/simple
+#RUN pip config set global.trusted-host nexus.mycompany.com
+
+RUN pip install ./dist/*.whl
+RUN pip install "aws-lambda-typing>=2.20.0"
+RUN pip install -r requirements.txt
+
+RUN rm -rf dist
+
+CMD ["lambda_function.handler"]

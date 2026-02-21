@@ -26,6 +26,7 @@ dev = [
     "bandit>=1.9.3",
     "pre-commit>=4.5.1",
     "pip-check-updates>=0.28.0",
+    "aws-lambda-typing>=2.20.0" # required for client/*lambda* but not for the library
 ]
 
 # --- Tool Configurations ---
@@ -35,14 +36,16 @@ dev = [
 "my_lib" = ["resources/*.json", "resources/*.yaml"]
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
-testpaths = ["tests"]
+pythonpath = ["src", "client"]
+testpaths = ["tests", "client"]
 # Fail build if coverage is below 80%
-addopts = "--cov=my_lib --cov-report=term-missing --cov-fail-under=80"
+addopts = "--cov=my_lib --cov=client --cov-report=term-missing --cov-fail-under=80"
 
 [tool.coverage.run]
 omit = [
-    "src/my_lib/config/project_properties.py"
+    "src/my_lib/config/project_properties.py",
+    "client/client.py",
+    "client/test_*.py",
 ]
 
 [tool.ruff]
