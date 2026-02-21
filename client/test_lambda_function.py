@@ -46,7 +46,7 @@ class TestHandler:
         assert result["statusCode"] == 200
         assert json.loads(result["body"])["result"] == 5
         mock_calculator.add.assert_called_once_with(2, 3)
-        mock_calculator.devide.assert_not_called()
+        mock_calculator.divide.assert_not_called()
 
     def test_add_missing_b_defaults_to_zero(self, make_event, mock_calculator):
         mock_calculator.add.return_value = 2
@@ -54,7 +54,7 @@ class TestHandler:
         assert result["statusCode"] == 200
         assert json.loads(result["body"])["result"] == 2
         mock_calculator.add.assert_called_once_with(2, 0)
-        mock_calculator.devide.assert_not_called()
+        mock_calculator.divide.assert_not_called()
 
     def test_divide(self, make_event, mock_calculator):
         mock_calculator.divide.return_value = 1.5
