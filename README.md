@@ -61,7 +61,7 @@ Two examples are provided in the [client](./client) directory.
 
 These are both containerised and can be run locally.
 
-### Installing from repository
+### Installing from a repository
 
 ```toml
 # ~/.config/pip/pip.conf
@@ -85,6 +85,13 @@ pip install /path/to/my_project/dist/my_lib-0.1.0-py3-none-any.whl
 A sample client application can be found in the [client](./client) directory.
 
 ## Notes
+
+### Deployments
+
+A library can be containerised and deployed example to AWS as Lambda or to Kubernetes.
+
+- Place infrastructure IaC in the [infrastructure](./infrastructure) directory to build and maintain infrastructure as code.
+- Place Helm Chart in the [charts](./charts) directory for Kubernetes deployment.
 
 ### Testing git hooks
 
