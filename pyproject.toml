@@ -29,6 +29,9 @@ dev = [
     "aws-lambda-typing>=2.20.0" # required for client/*lambda* but not for the library
 ]
 
+[project.scripts]
+calc-cli = "my_lib.calc_cli:main"
+
 # --- Tool Configurations ---
 
 [tool.setuptools.package-data]

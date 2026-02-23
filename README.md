@@ -52,6 +52,30 @@ make all # In development (lock install upgrade lint test build)
 
 Once the library (module) is published or just built locally, it can be used.
 
+### Exposing the library as a CLI
+
+The library can be exposed as a CLI program `calc-cli`. The `make install` will create a local executable as 
+[./.venv/bin/calc-cli](./.venv/bin/calc-cli).
+
+```shell
+calc-cli --operation add --a 1 --b 2
+calc-cli -o add -a 1 -b 2
+
+calc-cli --operation divide --a 1 --b 2
+calc-cli -o divide -a 1 -b 2
+```
+
+To install the calculator CLI `calc-cli` and the library use `pipx`.
+
+```shell
+brew install pipx
+
+pipx install my-lib            # if the library is already published
+pipx install /path/to/my-lib/  # if it needs to be installed from source; my-lib/ is the project root not the dist/ folder
+
+pipx uninstall my-lib # to remove the CLI; the name here must be the package name regardless how it was installed
+```
+
 ### Containerised Library Examples
 
 Two examples are provided in the [client](./client) directory.
