@@ -2,107 +2,89 @@
   "components": [
     {
       "bom-ref": "requirements-L7",
-      "description": "requirements line 7: anyio==4.12.1",
+      "description": "requirements line 7: annotated-types==0.7.0",
       "externalReferences": [
         {
           "comment": "implicit dist url",
           "type": "distribution",
-          "url": "https://pypi.org/simple/anyio/"
+          "url": "https://pypi.org/simple/annotated-types/"
         }
       ],
-      "name": "anyio",
-      "purl": "pkg:pypi/anyio@4.12.1",
+      "name": "annotated-types",
+      "purl": "pkg:pypi/annotated-types@0.7.0",
       "type": "library",
-      "version": "4.12.1"
+      "version": "0.7.0"
     },
     {
       "bom-ref": "requirements-L9",
-      "description": "requirements line 9: certifi==2026.1.4",
+      "description": "requirements line 9: pydantic==2.12.5",
       "externalReferences": [
         {
           "comment": "implicit dist url",
           "type": "distribution",
-          "url": "https://pypi.org/simple/certifi/"
+          "url": "https://pypi.org/simple/pydantic/"
         }
       ],
-      "name": "certifi",
-      "purl": "pkg:pypi/certifi@2026.1.4",
+      "name": "pydantic",
+      "purl": "pkg:pypi/pydantic@2.12.5",
       "type": "library",
-      "version": "2026.1.4"
+      "version": "2.12.5"
+    },
+    {
+      "bom-ref": "requirements-L11",
+      "description": "requirements line 11: pydantic-core==2.41.5",
+      "externalReferences": [
+        {
+          "comment": "implicit dist url",
+          "type": "distribution",
+          "url": "https://pypi.org/simple/pydantic-core/"
+        }
+      ],
+      "name": "pydantic-core",
+      "purl": "pkg:pypi/pydantic-core@2.41.5",
+      "type": "library",
+      "version": "2.41.5"
     },
     {
       "bom-ref": "requirements-L13",
-      "description": "requirements line 13: h11==0.16.0",
+      "description": "requirements line 13: typing-extensions==4.15.0",
       "externalReferences": [
         {
           "comment": "implicit dist url",
           "type": "distribution",
-          "url": "https://pypi.org/simple/h11/"
+          "url": "https://pypi.org/simple/typing-extensions/"
         }
       ],
-      "name": "h11",
-      "purl": "pkg:pypi/h11@0.16.0",
+      "name": "typing-extensions",
+      "purl": "pkg:pypi/typing-extensions@4.15.0",
       "type": "library",
-      "version": "0.16.0"
+      "version": "4.15.0"
     },
     {
-      "bom-ref": "requirements-L15",
-      "description": "requirements line 15: httpcore==1.0.9",
+      "bom-ref": "requirements-L18",
+      "description": "requirements line 18: typing-inspection==0.4.2",
       "externalReferences": [
         {
           "comment": "implicit dist url",
           "type": "distribution",
-          "url": "https://pypi.org/simple/httpcore/"
+          "url": "https://pypi.org/simple/typing-inspection/"
         }
       ],
-      "name": "httpcore",
-      "purl": "pkg:pypi/httpcore@1.0.9",
+      "name": "typing-inspection",
+      "purl": "pkg:pypi/typing-inspection@0.4.2",
       "type": "library",
-      "version": "1.0.9"
-    },
-    {
-      "bom-ref": "requirements-L17",
-      "description": "requirements line 17: httpx==0.28.1",
-      "externalReferences": [
-        {
-          "comment": "implicit dist url",
-          "type": "distribution",
-          "url": "https://pypi.org/simple/httpx/"
-        }
-      ],
-      "name": "httpx",
-      "purl": "pkg:pypi/httpx@0.28.1",
-      "type": "library",
-      "version": "0.28.1"
-    },
-    {
-      "bom-ref": "requirements-L19",
-      "description": "requirements line 19: idna==3.11",
-      "externalReferences": [
-        {
-          "comment": "implicit dist url",
-          "type": "distribution",
-          "url": "https://pypi.org/simple/idna/"
-        }
-      ],
-      "name": "idna",
-      "purl": "pkg:pypi/idna@3.11",
-      "type": "library",
-      "version": "3.11"
+      "version": "0.4.2"
     }
   ],
   "dependencies": [
     {
+      "ref": "requirements-L11"
+    },
+    {
       "ref": "requirements-L13"
     },
     {
-      "ref": "requirements-L15"
-    },
-    {
-      "ref": "requirements-L17"
-    },
-    {
-      "ref": "requirements-L19"
+      "ref": "requirements-L18"
     },
     {
       "ref": "requirements-L7"
@@ -112,7 +94,7 @@
     }
   ],
   "metadata": {
-    "timestamp": "2026-02-06T22:20:13.506796+00:00",
+    "timestamp": "2026-02-26T23:52:11.471878+00:00",
     "tools": {
       "components": [
         {
@@ -162,7 +144,7 @@
           ],
           "name": "cyclonedx-py",
           "type": "application",
-          "version": "7.2.1"
+          "version": "7.2.2"
         },
         {
           "description": "Python library for CycloneDX",
@@ -216,7 +198,7 @@
       ]
     }
   },
-  "serialNumber": "urn:uuid:92efd1ea-a93c-4ee9-afb9-027c5f16646f",
+  "serialNumber": "urn:uuid:df88da9a-68c8-4979-a8be-75f365049c05",
   "version": 1,
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
