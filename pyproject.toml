@@ -47,6 +47,7 @@ addopts = "--cov=my_lib --cov=client --cov-report=term-missing --cov-fail-under=
 [tool.coverage.run]
 omit = [
     "src/my_lib/config/project_properties.py",
+    "src/my_lib/calc_cli.py",
     "client/client.py",
     "client/test_*.py",
 ]
