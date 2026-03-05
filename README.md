@@ -18,6 +18,7 @@ Check the [Makefile](./Makefile) for automation as the initial step, it defines 
 | `make install`             | Syncs the environment with locked dependencies and installs the app in editable mode.   |
 | `make setup`               | Installs dependencies and sets up git hooks (runs `install` and `pre-commit install`).  |
 | `make outdated`            | Checks for newer versions of dependencies using `pip-check-updates`.                    |
+| `make compatibility`       | Checks each dependencies for python version compatibility.                              |
 | `make pip-upgrade`         | Upgrades `pip` to its latest version.                                                   |
 | `make lint`                | Checks code style using `ruff` without modifying files.                                 |
 | `make format`              | Automatically fixes code style issues using `ruff`.                                     |
@@ -45,6 +46,9 @@ export TWINE_REPOSITORY_URL="https://nexus.mycompany.com/repository/pypi-interna
 ```
 
 environment variables.
+
+The `make compatibility` accepts a parameter example `make compatibility py_version=3.9` to mark dependencies 
+that are not compatible with the given target version.
 
 ## Usage
 
