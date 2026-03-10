@@ -26,7 +26,8 @@ dev = [
     "bandit>=1.9.4",
     "pre-commit>=4.5.1",
     "pip-check-updates>=0.28.0",
-    "aws-lambda-typing>=2.20.0" # required for client/*lambda* but not for the library
+    "aws-lambda-typing>=2.20.0", # required for client/*lambda* but not for the library
+    "httpx>=0.28.1",
 ]
 
 [project.scripts]
